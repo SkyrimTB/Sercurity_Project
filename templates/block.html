@@ -1,0 +1,35 @@
+<div class="post">
+    <div class="post-nav">
+        <a href="/profile">
+            <button>BASIC INFORMATION</button>
+        </a>
+         % if admin:
+        <a href="/block">
+            <button>BLOCK LIST</button>
+        </a>
+        % end
+    </div>
+    <hr>
+    <table>
+        <tr>
+            <th>USERNAME</th>
+            <th>STATUS</th>
+            <th>ACTION</th>
+        </tr>
+        % for user in user_list:
+        <tr>
+            <td>{{ user[0] }}</td>
+            <td>{{ user[2] }}</td>
+            <td>
+                % if user[2]=='YES':
+                <a href="/unblock_user?username={{ user[0] }}"><button>unblock</button></a>
+                % else:
+                <a href="/block_user?username={{ user[0] }}"><button>block</button></a>
+                % end
+            </td>
+        </tr>
+        % end
+    </table>
+
+
+</div>

@@ -1,0 +1,45 @@
+<div class="post">
+    <div class="post-nav">
+        <a href="/profile">
+            <button>BASIC INFORMATION</button>
+        </a>
+        % if admin:
+        <a href="/block">
+            <button>BLOCK LIST</button>
+        </a>
+        % end
+    </div>
+    <hr>
+    <div>
+        <form action="/update_profile" method="post">
+            <div>
+                <div>Password:</div>
+                <input name="password" type="password"/>
+            </div>
+            <br>
+            <div class="d-flex flex-column align-items-center">
+                <div>Avatar:</div>
+                <img  id="avatar_img" onclick="chooseImage()" style="cursor: pointer;border-radius:50%;height:150px;width:150px;" src="{{ user[-2] }}"/>
+                <input id="avatar" name="avatar" type="text" hidden/>
+                <input id="file" type="file" accept="image/*" hidden/>
+                (click to upload)
+            </div>
+            <br>
+            <button>Update</button>
+        </form>
+    </div>
+</div>
+<script>
+    function chooseImage() {
+        document.getElementById("file").click()
+    }
+
+    document.getElementById('file').addEventListener('change', (e) => {
+        let reader = new FileReader();
+        reader.onloadend = () => {
+            document.getElementById("avatar").value = reader.result
+            document.getElementById("avatar_img").src=reader.result
+        }
+        reader.readAsDataURL(e.target.files[0])
+    })
+</script>

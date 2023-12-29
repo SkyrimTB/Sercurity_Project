@@ -15,8 +15,10 @@
 #-----------------------------------------------------------------------------
 import os
 import sys
-from bottle import run
 import sql
+from bottle import run
+import gunicorn
+
 
 #-----------------------------------------------------------------------------
 # You may eventually wish to put these in their own directories and then load 
@@ -45,31 +47,31 @@ def run_server():
         run_server
         Runs a bottle server
     '''
-
     # use openssl to generate key pairs and certificate.
-    # key_file : my.key
-    # cert_file : my.crt
+    # key_file : certificates/localhost.key
+    # cert_file : certificates/localhost.crt
+    
+    run(host=host, port=port, server='gunicorn', keyfile='certificates/localhost.key', certfile='certificates/localhost.crt', debug=debug) 
 
-    run(host=host, port=port, debug=debug, server='gunicorn', keyfile='my.key', certfile='my.crt')
-    # run(host=host, port=port, debug=debug)
 #-----------------------------------------------------------------------------
 # Optional SQL support
 # Comment out the current manage_db function, and 
 # uncomment the following one to load an SQLite3 database
-
 def manage_db():
     '''
         Blank function for database support, use as needed
     '''
-    database_args = "./test.db"
-    sql_db = sql.SQLDatabase(database_args)
+    sql_db = sql.SQLDatabase()
     sql_db.database_setup()
-    sql_db.commit()
 
-    print(sql_db.debug())
-    print(sql_db.get_user('admin'))
+    # Print the https domain, Please use this link to visit
+    print("Please use this HTTPS Domain: https://localhost:8081")
+
+    #print(sql_db.debug())
+    #print(sql_db.get_user('admin'))
 
     pass
+
 
 #-----------------------------------------------------------------------------
 
@@ -91,17 +93,11 @@ def run_commands(args):
 
         :: args :: Command line arguments passed to this function
     '''
-    commands = args[1:]
 
-    # Default command
-    if len(commands) == 0:
-        commands = [default_command]
 
-    for command in commands:
-        if command in command_list:
-            command_list[command]()
-        else:
-            print("Command '{command}' not found".format(command=command))
+    for command in command_list:
+
+        command_list[command]()
 
 #-----------------------------------------------------------------------------
 

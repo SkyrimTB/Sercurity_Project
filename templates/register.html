@@ -1,13 +1,27 @@
+<div class="container">
 
-Login with a username and password
-</p>
-<p>
-<form action="/register" method="post">
-    Username: <input name="username" type="text" />
-</br>
-    Password: <input name="password" type="password" />
-<input value="Register" type="submit" />
-</form>
-</p>
-</center>
+    <div>
+        <form action="/register" method="post">
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" name="username" class="form-control" id="username">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" name="password" class="form-control" id="password">
+            </div>
+            <div class="mb-3">
+                <label for="confirm_password" class="form-label">Password Confirm</label>
+                <input type="password" name="confirm_password" id="confirm_password" class="form-control"
+                       onkeyup='check();'>
+            </div>
+            <span id='check_message'></span>
+            <input name="user_public_key" id="user_public_key_id" value="" type="hidden"/>
+            <input name="user_private_key" id="user_private_key_id" value="" type="hidden"/>
+            <input value="Register" type="submit" id="register"/>
 
+        </form>
+    </div>
+</div>
+<script src="../js/keygenerator.js"></script>
+<script src="../js/password_check.js"></script>

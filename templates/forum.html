@@ -1,0 +1,44 @@
+<center>
+    <form action="/forum" method="post">
+
+        <div>
+            Section:
+            <select name="section">
+                <option selected value="general">general</option>
+                <option value="tech">tech issue</option>
+
+                % if is_admin:
+                <option value="admin">admin</option>
+
+                % end
+
+            </select>
+        </div>
+        <br>
+        <div>
+            Title* :
+            <input required name="title" placeholder="Title"/>
+        </div>
+
+        <br>
+        <div>
+            Content* :<br>
+            <textarea required name="content" rows="5" cols="30"></textarea>
+        </div>
+        <br>
+        % if block:
+        <button disabled>POST</button>
+        % else:
+        <button >POST</button>
+        % end
+        % if is_admin:
+        <p>Admin Mute Function</p>
+        Username: <input name="username_mute" type="username_mute"/>
+        <input value="Mute" type="submit"/>
+        % end
+    </form>
+</center>
+
+
+
+
